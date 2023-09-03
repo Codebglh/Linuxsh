@@ -36,6 +36,8 @@ choice(){
     xuanzhe " 3." " 卸载nodejs"
     xuanzhe " 4." " 安装nodejs相关包管理常见依赖nrm、encoryp-js、http-server等"
     xuanzhe " 5." " 创建nodejs软链接"
+    xuanzhe " 6." " 安装zsh"
+    xuanzhe " 7." " 安装ohmyzsh"
     xuanzhe " 0." " 退出脚本"
     echo
     read -p "请输入数字:" menuNumberInput
@@ -57,6 +59,11 @@ choice(){
     ;;  5 )
             crlink
 
+    ;;  6 )
+            inzsh
+
+    ;;  7 )
+            inohmyzsh
     ;;
         0 )
             rm -f /root/box.sh
@@ -135,9 +142,63 @@ function unodejs(){
     fi
     choice
 }
+function inzsh(){
+    wget https://jaist.dl.sourceforge.net/project/zsh/zsh/5.9/zsh-5.9.tar.xz 
+    tar xvf zsh-5.9.tar.xz    
+    yum install gcc perl-ExtUtils-MakeMaker
+    yum install ncurses-devel
+    cd zsh-5.9
+    ./configure
+    make && make install
+    blue "在最后一行加上：/usr/local/bin/zsh"
+    echo
+    read -p "复制相关数据输入y进入配置" bg
+    case $bg  in
+        y )
+           vi /etc/shells
+	    ;;
+        * )
+            
+            red "未成功配置 !"
+            
+        ;;
+    esac
+    chsh -s /usr/local/bin/zsh
+    zsh --version  &> /dev/null
+     if [  $? -eq 0 ]; then
+        green "zsh安装成功"
+    else
+        red "zsh安装失败"
+    fi
+    choice
+}
+function inohmyzsh(){
+    #安装oh-my-zsh
+    sh -c "$(curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    #2安装powerlevel10k主题
+    git clone  https://ghproxy.com/https://github.com/romkatv/powerlevel10k.git   ./.oh-my-zsh/themes
+    
+    blue "修改 ZSH_THEME=\"powerlevel10k/powerlevel10k\""
+    #安装语法高亮插件
+    git clone https://ghproxy.com/https://github.com/zsh-users/zsh-syntax-highlighting.git  ./.oh-my-zsh/custom/plugins/
+
+    #安装自动补全插件
+    git clone https://ghproxy.com/https://github.com/zsh-users/zsh-autosuggestions ./.oh-my-zsh/custom/plugins/
+
+
+    blue "修改 plugins=(
+     git
+     zsh-syntax-highlighting
+     zsh-autosuggestions
+)"
+    blue "HIST_STAMPS=\"yyyy-mm-dd\" 设置时间为年月日"
+    vi .zshrc
+    source .zshrc
+    p10k configure 
+}
 function start_menu(){
     jianjie " FROM:" "https://github.com/ "
-    jianjie " USE:" "wget -O box.sh http://192.168.31.134:8080/test.sh && chmod +x box.sh && clear && ./box.sh "
+    jianjie " USE:" "wget -O box.sh https://cdn.jsdelivr.net/gh/Codebglh/command@0.0.3/Linux/box.sh && chmod +x box.sh && clear && ./box.sh "
     purple   "\t\t\tBGcode  命令盒子\t\t\t "
     choice
 }

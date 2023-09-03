@@ -8,5 +8,5 @@
 > 2、文件链接通过cdndeliver传递
 
 ```
- wget -O box.sh https://cdn.jsdelivr.net/gh/Codebglh/Linuxsh@0.0.2/SH/box.sh && chmod +x box.sh && clear && ./box.sh 
+ wget -O box.sh https://cdn.jsdelivr.net/gh/Codebglh/command@0.0.2/X/X.sh && chmod +x box.sh && clear && ./box.sh 
  ```

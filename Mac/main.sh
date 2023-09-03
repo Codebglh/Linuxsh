@@ -34,7 +34,7 @@ function jianjie(){
 }
 #安装homebrew
 function inhomebrew(){
-    /bin/zsh -c "$(curl -fsSL  https://cdn.jsdelivr.net/gh/Codebglh/command@0.0.2/Mac/Homebrew.sh)"
+    /bin/zsh -c "$(curl -fsSL  https://cdn.jsdelivr.net/gh/Codebglh/command@0.0.3/Mac/Homebrew.sh)"
     choice
 }
 #shell美化
@@ -93,7 +93,7 @@ function choice(){
 }
 function main(){
     jianjie " FROM:" "https://github.com/ "
-    jianjie " USE:" "/bin/zsh -c \"\$(curl -fsSL  https://cdn.jsdelivr.net/gh/Codebglh/command@0.0.2/Mac/main.sh)\""
+    jianjie " USE:" "/bin/zsh -c \"\$(curl -fsSL  https://cdn.jsdelivr.net/gh/Codebglh/command@0.0.3/Mac/main.sh)\""
     purple   "\t\t\tBGcode  命令盒子\t\t\t "
     choice 
 }
